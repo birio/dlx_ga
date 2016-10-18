@@ -1,6 +1,6 @@
 
--incdir ../../rtl/common \
--incdir ../tb
++incdir+../../rtl/common \
++incdir+../tb
 
 ../../rtl/common/mux_data.v
 

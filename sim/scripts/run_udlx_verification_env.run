@@ -1,7 +1,7 @@
 #!/bin/bash
 export TIMESCALE='1ns/10ps'
-irun \
+vlog \
 -timescale $TIMESCALE \
--f ../srclist/udlx_test.srclist \
--access +rwc  -GUI \
--s -input ../run/dlx_verif.tcl
+-f ../srclist/udlx_test.srclist # \
+# -access +rwc  -GUI \
+# -s -input ../run/dlx_verif.tcl
