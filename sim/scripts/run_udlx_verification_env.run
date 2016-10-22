@@ -1,7 +1,6 @@
 #!/bin/bash
-export TIMESCALE='1ns/10ps'
-irun \
--timescale $TIMESCALE \
--f ../srclist/udlx_test.srclist \
--access +rwc  -GUI \
--s -input ../run/dlx_verif.tcl
+# export TIMESCALE=1ns/10ps
+iverilog -g2012 -gstrict-expr-width \
+-f ../srclist/udlx_test.srclist 
+# -access +rwc  -GUI \
+# -s -input ../run/dlx_verif.tcl

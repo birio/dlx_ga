@@ -1,6 +1,7 @@
 
--incdir ../../rtl/common \
--incdir ../tb
++timescale+1ns/10ps
++incdir+../../rtl/common 
++incdir+../tb
 
 ../../rtl/common/mux_data.v
 
@@ -38,7 +39,6 @@
 ../../fpga/rtl/MT48LC8M16A2.v
 ../../fpga/rtl/42s16320.v
 ../../rtl/inst_memory_controll/sram_ctrl.v
-../../rtl/common/rom.v
 
 //../ver/tosco_tb/top_tb.sv
 //../ver/tosco_tb/tosco_tb.sv
