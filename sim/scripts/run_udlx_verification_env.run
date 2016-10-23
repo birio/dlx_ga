@@ -2,6 +2,5 @@
 export TIMESCALE='1ns/10ps'
 vlog \
 -timescale $TIMESCALE \
--f ../srclist/udlx_test.srclist # \
-# -access +rwc  -GUI \
-# -s -input ../run/dlx_verif.tcl
+-f ../srclist/udlx_test.srclist ;
+vsim -c work.udlx_tb -do udlx_tb_vsim.do
