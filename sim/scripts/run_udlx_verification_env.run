@@ -1,6 +1,17 @@
 #!/bin/bash
+
+if [[ $# -gt 0 ]] ; then
+   interactive="$1"
+fi
+
+CMD="-c"
+case $interactive in
+    -i )
+    CMD=""
+esac
+
 export TIMESCALE='1ns/10ps'
 vlog \
 -timescale $TIMESCALE \
 -f ../srclist/udlx_test.srclist ;
-vsim -c work.udlx_tb -do udlx_tb_vsim.do
+vsim $CMD work.udlx_tb -do udlx_tb_vsim.do
