@@ -4,7 +4,7 @@ if [[ $# -gt 0 ]] ; then
    interactive="$1"
 fi
 
-CMD="-c"
+CMD="-c -do udlx_tb_vsim.do"
 case $interactive in
     -i )
     CMD=""
@@ -14,4 +14,4 @@ export TIMESCALE='1ns/10ps'
 vlog \
 -timescale $TIMESCALE \
 -f ../srclist/udlx_test.srclist ;
-vsim $CMD work.udlx_tb -do udlx_tb_vsim.do
+vsim $CMD work.udlx_tb
