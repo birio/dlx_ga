@@ -26,9 +26,10 @@ always@(posedge clk)begin
 end
 
 initial begin
-  $readmemh("../tests/code_test0.hex", mem);
-//  $readmemh("../tests/code_test_antigo.hex", mem);
-//  $readmemh("../tests/sdram_wr_rd_test.hex", mem);
+   $readmemh("../tests/DLX_T1_1.hex", mem);
+// $readmemh("../tests/code_test0.hex", mem);
+// $readmemh("../tests/code_test_antigo.hex", mem);
+// $readmemh("../tests/sdram_wr_rd_test.hex", mem);
 end
 
 endmodule
