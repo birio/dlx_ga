@@ -23,28 +23,28 @@ prob_opcode_slt     = 10
 prob_opcode_slti    = 10
 prob_opcode_sltiu   = 10
 prob_opcode_sltu    = 10
-prob_opcode_beq     = 10
-prob_opcode_bne     = 10
-prob_opcode_blt     = 10
-prob_opcode_bgt     = 10
-prob_opcode_ble     = 10
-prob_opcode_bge     = 10
-prob_opcode_j       = 10
-prob_opcode_jal     = 10
-prob_opcode_jr      = 10
-prob_opcode_jalr    = 10
+prob_opcode_beq     =  0
+prob_opcode_bne     =  0
+prob_opcode_blt     =  0
+prob_opcode_bgt     =  0
+prob_opcode_ble     =  0
+prob_opcode_bge     =  0
+prob_opcode_j       =  0
+prob_opcode_jal     =  0
+prob_opcode_jr      =  0
+prob_opcode_jalr    =  0
 prob_opcode_move    = 10
-prob_opcode_lb      = 10
-prob_opcode_lbu     = 10
-prob_opcode_lh      = 10
-prob_opcode_lhu     = 10
-prob_opcode_lui     = 10
-prob_opcode_lw      = 10
-prob_opcode_li      = 10
-prob_opcode_la      = 10
-prob_opcode_sb      = 10
-prob_opcode_sh      = 10
-prob_opcode_sw      = 10
+prob_opcode_lb      =  0
+prob_opcode_lbu     =  0
+prob_opcode_lh      =  0
+prob_opcode_lhu     =  0
+prob_opcode_lui     =  0
+prob_opcode_lw      =  0
+prob_opcode_li      =  0
+prob_opcode_la      =  0
+prob_opcode_sb      =  0
+prob_opcode_sh      =  0
+prob_opcode_sw      =  0
 
 # must be greater than three
 numb_of_regs_to_use = 10
@@ -58,7 +58,7 @@ imm_value_16_l = [ i for i in range (0, 2**16) ]
 imm_value_15_l = [ i for i in range (0, 2**15) ]
 
 # between 1 and 100
-max_num_of_labels = 5
+max_num_of_labels = 1
 
 weighted_opcodes_l = (prob_opcode_add    * ["add"] +  
                       prob_opcode_addi   * ["addi"] +

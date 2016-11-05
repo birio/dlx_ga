@@ -13,3 +13,6 @@
   - call random_gen
   - compile
   - rom and define selection
+
+- underline not generated instructions
+- do a regression fully-random for comparing with the CGA generation
