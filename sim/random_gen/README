@@ -1,0 +1,15 @@
+- list generation parameters
+  - opcodes
+  - regs
+  - imm
+- seed managment
+- list prob weights
+- write the .asm file
+
+- how to be sure that tests ends and how to signals the end of test
+- address gen randomly means a lots of runtime error
+- manage base test and user test
+- update the script
+  - call random_gen
+  - compile
+  - rom and define selection
