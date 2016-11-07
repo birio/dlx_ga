@@ -109,6 +109,10 @@ for i in range (0, number_of_lines):
    test_file.write(line)
    test_file.write("\n")
 
+for i in range(0, 10):
+   test_file.write("NOP")
+   test_file.write("\n")
+
 # for i in range(number_of_lines, 2**32):
 #    label_str = "j label_" + str(random.choice([ i for i in range(0, num_of_labels)]))
 #    test_file.write(label_str)
