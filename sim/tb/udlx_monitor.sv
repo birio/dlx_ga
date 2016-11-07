@@ -18,6 +18,8 @@ class udlx_monitor;
   virtual interface dut_if dut_if;
 
   int cnt_stop;
+  int part_num;
+  int instr_count;
   logic [DATA_WIDTH-1:0] instruction;
   logic [DATA_WIDTH-1:0] regs_reference [0:(2**ADDRESS_WIDTH)-1];
   logic [DATA_WIDTH-1:0] data_write_reference [0:MAX_LENGTH-1];
@@ -60,7 +62,7 @@ class udlx_monitor;
       forever begin
         //$display("-------------- READ INSTRUCTION MONITOR ----------------");
         @(posedge dut_if.clk_dlx);
-        //$display("instruction: %x", dut_if.instruction);
+        $display("instruction: %x", dut_if.instruction);
         instruction = dut_if.instruction;
         if(instruction == 'h00) begin
           if(cnt_stop == 5) begin
@@ -74,6 +76,14 @@ class udlx_monitor;
         end
         else begin
           cnt_stop = 0;
+        end
+        if(instr_count == 10) begin
+           $display("part %d", part_num);
+           part_num = part_num + 1;
+           instr_count = 0;
+        end
+        else begin
+           instr_count = instr_count + 1;
         end
     end
     join_none
@@ -89,6 +99,7 @@ class udlx_monitor;
       int error_reg;
       int error_mem;
 
+`ifdef ENABLE_CHECK 
       $sformat (compile_c, "gcc ../golden_model/main.c -o udlx_golden_model.o");
       $system(compile_c);
       //$sformat (execute_c, "./udlx_golden_model.o ../tests/DLX_T1_1.hex");
@@ -146,6 +157,7 @@ class udlx_monitor;
          //while not EOF
          c = $fgetc(fp);
       end
+`endif 
       if(error_mem || error_reg)
         $finish;
       $display("\n");
