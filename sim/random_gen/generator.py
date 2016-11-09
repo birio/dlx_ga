@@ -13,9 +13,21 @@ seed = sys.argv[1]
 random.seed(seed)
 
 # if argv[2] is present, import the python file associated
-if len(sys.argv) == 3:
-   var = sys.argv[2]
+# if len(sys.argv) == 3:
+#    var = sys.argv[2]
+#    importlib.import_module(var, package=None)
+
+# if -t is present, the next arg is the user_test
+if ("-t" in sys.argv):
+   var = sys.argv[sys.argv.index("-t")+1]
    importlib.import_module(var, package=None)
+   
+# if -o is present, the next arg is the name of output asm file
+if ("-o" in sys.argv):
+   file_name = sys.argv[sys.argv.index("-o")+1]
+else:
+   file_name = "generated_test.asm"
+   
 
 # fixed value
 number_of_lines = 10
@@ -41,7 +53,7 @@ print "number_of_lines = " + str(number_of_lines)
 weights.set_list()
 print weights.weighted_opcodes_l 
 
-test_file = open('generated_test.asm', 'w+')
+test_file = open(file_name, 'w+')
 
 for i in range (0, number_of_lines):
    # chose an instr from the weighted list
