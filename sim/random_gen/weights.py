@@ -69,7 +69,7 @@ test_weights_d["imm_value_5_l"] = [i for i in range (0, test_weights_d["imm_valu
 test_weights_d["imm_value_15_max_value"] = 2**15+1
 test_weights_d["imm_value_15_l"] = [i for i in range (0, test_weights_d["imm_value_15_max_value"])]
 # imm_value_16
-test_weights_d["imm_value_16_max_value"] = 2**15+1
+test_weights_d["imm_value_16_max_value"] = 2**16+1
 test_weights_d["imm_value_16_l"] = [i for i in range (0, test_weights_d["imm_value_16_max_value"])]
 
 # between 1 and 100
