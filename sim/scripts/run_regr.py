@@ -19,6 +19,8 @@ os.system(build_str)
 
 for i in range(0, numb_of_tests):
    seed = random.choice([j for j in range(0, 2**16)])
-   os.system("./../random_gen/generator.py " + str(seed))
+   input_test = "user_test" # + str(i)
+   output_test = "gen_test_" + str(i) + ".asm"
+   os.system("./../random_gen/generator.py " + str(seed) + " -t " + str(input_test) + " -o " + str(output_test))
    os.system("java -jar ../../compiler/Mars4_4.jar a dump .text HexText ../../sim/tests/generated_test.hex generated_test.asm")
    os.system("vsim  -c -do \"run -all; exit\" work.udlx_tb")
