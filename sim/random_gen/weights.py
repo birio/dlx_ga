@@ -64,13 +64,10 @@ test_weights_d["numb_of_regs_to_use"] = random.choice([i for i in range (3, test
 
 # imm_value_5
 test_weights_d["imm_value_5_max_value"] = 2**5+1
-test_weights_d["imm_value_5_l"] = [i for i in range (0, test_weights_d["imm_value_5_max_value"])]
 # imm_value_15
 test_weights_d["imm_value_15_max_value"] = 2**15+1
-test_weights_d["imm_value_15_l"] = [i for i in range (0, test_weights_d["imm_value_15_max_value"])]
 # imm_value_16
 test_weights_d["imm_value_16_max_value"] = 2**16+1
-test_weights_d["imm_value_16_l"] = [i for i in range (0, test_weights_d["imm_value_16_max_value"])]
 
 # between 1 and 100
 max_num_of_labels = 1
@@ -123,3 +120,6 @@ def set_list() :
                          test_weights_d["prob_opcode_sb"].weight     * ["sb"]    +
                          test_weights_d["prob_opcode_sh"].weight     * ["sh"]    +
                          test_weights_d["prob_opcode_sw"].weight     * ["sw"])
+   test_weights_d["imm_value_5_l"] = [i for i in range (0, test_weights_d["imm_value_5_max_value"])]
+   test_weights_d["imm_value_15_l"] = [i for i in range (0, test_weights_d["imm_value_15_max_value"])]
+   test_weights_d["imm_value_16_l"] = [i for i in range (0, test_weights_d["imm_value_16_max_value"])]
