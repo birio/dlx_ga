@@ -161,6 +161,13 @@ class udlx_monitor;
       if(error_mem || error_reg)
         $finish;
       $display("\n");
+
+      $display("START REPORT");
+      for (cnt=0; cnt<32; cnt++) begin
+         $display("REF register[%0d]: %0h", cnt, dut_if.regs[cnt]);
+      end
+      $display("END REPORT");
+
       $display("********************************************************");
       $display("*********  TEST PASSED : CONGRATULATIONS!!  ************");
       $display("********************************************************");
