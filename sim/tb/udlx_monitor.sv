@@ -94,7 +94,7 @@ class udlx_monitor;
       string compile_c;
       string execute_c;
       string f_path;
-      integer fp,c;
+      integer fp,c,r,fp_regs;
       int cnt, ok;
       int error_reg;
       int error_mem;
@@ -162,11 +162,14 @@ class udlx_monitor;
         $finish;
       $display("\n");
 
+      fp_regs = $fopen("regs_out", "w");
       $display("START REPORT");
       for (cnt=0; cnt<32; cnt++) begin
          $display("REF register[%0d]: %0h", cnt, dut_if.regs[cnt]);
+         $fwrite(fp_regs, "REF register[%0d]: %0h\n", cnt, dut_if.regs[cnt]);
       end
       $display("END REPORT");
+      $fclose(fp_regs);
 
       $display("********************************************************");
       $display("*********  TEST PASSED : CONGRATULATIONS!!  ************");
