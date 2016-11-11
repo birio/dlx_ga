@@ -123,3 +123,4 @@ def set_list() :
    test_weights_d["imm_value_5_l"] = [i for i in range (0, test_weights_d["imm_value_5_max_value"])]
    test_weights_d["imm_value_15_l"] = [i for i in range (0, test_weights_d["imm_value_15_max_value"])]
    test_weights_d["imm_value_16_l"] = [i for i in range (0, test_weights_d["imm_value_16_max_value"])]
+   test_weights_d["numb_of_regs_to_use"] = random.choice([i for i in range (3, test_weights_d["numb_of_regs_to_use_max_value"]+1)])
