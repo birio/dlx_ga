@@ -30,7 +30,7 @@ else:
    
 
 # fixed value
-number_of_lines = 10
+number_of_lines = 100
 
 # available registers to use in the test
 trues_l  = [True]  * weights.test_weights_d["numb_of_regs_to_use"]
