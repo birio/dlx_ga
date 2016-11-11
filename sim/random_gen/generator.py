@@ -55,6 +55,11 @@ print weights.weighted_opcodes_l
 
 test_file = open(file_name, 'w+')
 
+# init all registers
+for i in range (0, 32):
+   asm_line = "\t addi $" + str(i) + ", $0, 0\n"
+   test_file.write(asm_line)
+
 for i in range (0, number_of_lines):
    # chose an instr from the weighted list
    asm_line = random.sample(weights.weighted_opcodes_l, 1)
