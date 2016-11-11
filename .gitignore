@@ -100,3 +100,16 @@ sympy-plots-for-*.tex/
 modules/instruction_decoder/rtl/instruction_decoder.v
 *simvision*
 .~lock*
+
+#compiler
+compiler/
+
+#python compiled library
+*.pyc
+
+#vsim work 
+sim/scripts/work/
+
+#vim swap
+*.swo
+*.swp
