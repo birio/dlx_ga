@@ -7,15 +7,9 @@ three_33_l = [i for i in range(3, 33)]
 zero_5bits_l = [i for i in range(0, 2**5)]
 zero_15bits_l = [i for i in range(0, 2**15)]
 zero_16bits_l = [i for i in range(0, 2**16)]
-prob_opcode_l = ["prob_opcode_add", "prob_opcode_addi", "prob_opcode_addiu", "prob_opcode_addu", \
-"prob_opcode_sub", "prob_opcode_subu", "prob_opcode_and", "prob_opcode_andi", "prob_opcode_nor", \
-"prob_opcode_or", "prob_opcode_ori", "prob_opcode_xor", "prob_opcode_xori", "prob_opcode_sll", \
-"prob_opcode_srl", "prob_opcode_sra", "prob_opcode_sllv", "prob_opcode_srlv", "prob_opcode_srav", \
-"prob_opcode_slt", "prob_opcode_slti", "prob_opcode_sltiu", "prob_opcode_sltu", "prob_opcode_beq", \
-"prob_opcode_bne", "prob_opcode_blt", "prob_opcode_bgt", "prob_opcode_ble", "prob_opcode_bge", \
-"prob_opcode_j", "prob_opcode_jal", "prob_opcode_jr", "prob_opcode_jalr", "prob_opcode_move", \
-"prob_opcode_lb", "prob_opcode_lbu", "prob_opcode_lh", "prob_opcode_lhu", "prob_opcode_lui", "prob_opcode_lw", \
-"prob_opcode_li", "prob_opcode_la", "prob_opcode_sb", "prob_opcode_sh", "prob_opcode_sw"] 
+prob_opcode_l = ["prob_opcode_add", "prob_opcode_addi", \
+"prob_opcode_sub", "prob_opcode_subi", "prob_opcode_and", "prob_opcode_andi", \
+"prob_opcode_or", "prob_opcode_ori"] 
 
 def conf_user_test(seed):
    # configure input_test
