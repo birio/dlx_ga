@@ -166,7 +166,7 @@ class udlx_monitor;
       $display("START REPORT");
       for (cnt=0; cnt<32; cnt++) begin
          $display("REF register[%0d]: %0h", cnt, dut_if.regs[cnt]);
-         $fwrite(fp_regs, "REF register[%0d]: %0h\n", cnt, dut_if.regs[cnt]);
+         $fwrite(fp_regs, "REF register[%0d]: %0d\n", cnt, dut_if.regs[cnt]);
       end
       $display("END REPORT");
       $fclose(fp_regs);
