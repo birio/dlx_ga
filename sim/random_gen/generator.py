@@ -8,19 +8,17 @@ import importlib
 import opcodes
 import weights
 
-# ./generator.py SEED
+# ./generator.py SEED [-t <user_test> -o <generated_asm.asm>]
 seed = sys.argv[1]
 random.seed(seed)
 
-# if argv[2] is present, import the python file associated
-# if len(sys.argv) == 3:
-#    var = sys.argv[2]
-#    importlib.import_module(var, package=None)
-
 # if -t is present, the next arg is the user_test
 if ("-t" in sys.argv):
-   var = sys.argv[sys.argv.index("-t")+1]
-   importlib.import_module(var, package=None)
+   user_test = sys.argv[sys.argv.index("-t")+1]
+   # check if by errors the user test ends by ".py", delete it
+   if user_test.endswith(".py"):
+      user_test = user_test[user_test:-3]
+   importlib.import_module(user_test, package=None)
    
 # if -o is present, the next arg is the name of output asm file
 if ("-o" in sys.argv):
@@ -50,8 +48,9 @@ print available_regs_l
 
 print "number_of_lines = " + str(number_of_lines)
 
+# methods the set the opcodes and imm list based on user_test weights
 weights.set_list()
-print weights.weighted_opcodes_l 
+# print weights.weighted_opcodes_l 
 
 test_file = open(file_name, 'w+')
 

@@ -16,3 +16,15 @@
 
 - underline not generated instructions
 - do a regression fully-random for comparing with the CGA generation
+
+- add non implemented instructions on both rtl, checker and test generator
+- investigate checker
+- try to compile checker only once in run_regr
+- do regression with checker enabled
+- add script for clearing generated files
+
+- evaluate the number of lines for each test
+- check if seed is properly called: ensure the reproducibility
+
+- in run_regr, arrest as soon as there is an error somewhere
+
