@@ -5,7 +5,6 @@
 
 # always use lists; converto to file only when eval is called;
 # inside eval the is run and the output file is done
-# TODO : regs choice and imm values should be constant
 
 import random
 import weights
@@ -106,7 +105,6 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 #----------
 
-# TODO fixed seed?
 
 def main():
 
@@ -115,9 +113,9 @@ def main():
     os.system(build_str)
     weights.set_list()
 
+    # TODO fixed seed?
     random.seed(64)
 
-    # TODO configure the number of individuals
     # create an initial population of 300 individuals (where
     # each individual is a list of integers)
     pop = toolbox.population(n=300)
@@ -129,7 +127,6 @@ def main():
     #
     # NGEN  is the number of generations for which the
     #       evolution runs
-    # TODO configure these param
     CXPB, MUTPB, NGEN = 0.5, 0.2, 40
    
     stats_file = open("stats_file", "w") 
@@ -185,7 +182,6 @@ def main():
         # The population is entirely replaced by the offspring
         pop[:] = offspring
        
-        # TODO use this for evaluate the quality of the algo 
         # Gather all the fitnesses in one list and print the stats
         fits = [ind.fitness.values[0] for ind in pop]
         
