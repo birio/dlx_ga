@@ -1,0 +1,244 @@
+Start of evolution
+  Evaluated 300 individuals
+-- Generation 0 --
+  Evaluated 197 individuals
+  Min 0.0
+  Max 47244422770.0
+  Avg 8103266145.75
+  Std 9913007420.12
+-- Generation 1 --
+  Evaluated 181 individuals
+  Min 0.0
+  Max 51539417521.0
+  Avg 14302312299.4
+  Std 11923978940.5
+-- Generation 2 --
+  Evaluated 182 individuals
+  Min 0.0
+  Max 55834145045.0
+  Avg 20501333341.6
+  Std 13900796599.1
+-- Generation 3 --
+  Evaluated 179 individuals
+  Min 9748.0
+  Max 73013880109.0
+  Avg 25784093415.2
+  Std 15182841143.0
+-- Generation 4 --
+  Evaluated 185 individuals
+  Min 37149.0
+  Max 73013880109.0
+  Avg 32885034779.3
+  Std 15896344537.7
+-- Generation 5 --
+  Evaluated 177 individuals
+  Min 906.0
+  Max 73013984789.0
+  Avg 38998155468.2
+  Std 15893349192.1
+-- Generation 6 --
+  Evaluated 165 individuals
+  Min 37149.0
+  Max 85898422651.0
+  Avg 42763378975.5
+  Std 16873549535.3
+-- Generation 7 --
+  Evaluated 162 individuals
+  Min 0.0
+  Max 85898422651.0
+  Avg 44037541183.9
+  Std 19028608000.6
+-- Generation 8 --
+  Evaluated 185 individuals
+  Min 7012.0
+  Max 85898422651.0
+  Avg 48761954280.2
+  Std 19654559165.5
+-- Generation 9 --
+  Evaluated 197 individuals
+  Min 40746.0
+  Max 85898422651.0
+  Avg 53572259776.2
+  Std 20185826005.8
+-- Generation 10 --
+  Evaluated 185 individuals
+  Min 40746.0
+  Max 85898422651.0
+  Avg 58840684760.0
+  Std 20328804384.6
+-- Generation 11 --
+  Evaluated 176 individuals
+  Min 51073.0
+  Max 90193524584.0
+  Avg 65154208854.1
+  Std 17743663869.8
+-- Generation 12 --
+  Evaluated 190 individuals
+  Min 45891.0
+  Max 90193524584.0
+  Avg 68461290502.0
+  Std 19170492258.3
+-- Generation 13 --
+  Evaluated 185 individuals
+  Min 73453.0
+  Max 94488617791.0
+  Avg 71023931867.7
+  Std 18633208055.2
+-- Generation 14 --
+  Evaluated 205 individuals
+  Min 105884.0
+  Max 94488317275.0
+  Avg 71711116326.2
+  Std 22494611465.3
+-- Generation 15 --
+  Evaluated 191 individuals
+  Min 170619.0
+  Max 94488522679.0
+  Avg 76020356540.6
+  Std 19783066489.2
+-- Generation 16 --
+  Evaluated 192 individuals
+  Min 168688.0
+  Max 98783588560.0
+  Avg 81474896893.5
+  Std 16393457035.1
+-- Generation 17 --
+  Evaluated 177 individuals
+  Min 172930.0
+  Max 1.03078604747e+11
+  Avg 83650991280.1
+  Std 16483405665.7
+-- Generation 18 --
+  Evaluated 175 individuals
+  Min 135348.0
+  Max 1.03078296478e+11
+  Avg 85998862218.2
+  Std 17699430074.8
+-- Generation 19 --
+  Evaluated 187 individuals
+  Min 220369.0
+  Max 1.11668279117e+11
+  Avg 87802735145.9
+  Std 18004580754.9
+-- Generation 20 --
+  Evaluated 197 individuals
+  Min 221775.0
+  Max 1.11668279117e+11
+  Avg 89807060954.3
+  Std 20240198112.9
+-- Generation 21 --
+  Evaluated 176 individuals
+  Min 326632.0
+  Max 1.15962991847e+11
+  Avg 93157112811.5
+  Std 17400444851.9
+-- Generation 22 --
+  Evaluated 177 individuals
+  Min 168828.0
+  Max 1.2455276755e+11
+  Avg 96220826124.1
+  Std 19281226060.8
+-- Generation 23 --
+  Evaluated 158 individuals
+  Min 200720.0
+  Max 1.20257812752e+11
+  Avg 1.00630248471e+11
+  Std 16536852305.0
+-- Generation 24 --
+  Evaluated 194 individuals
+  Min 240600.0
+  Max 1.24552811996e+11
+  Avg 1.02262332502e+11
+  Std 18174744255.2
+-- Generation 25 --
+  Evaluated 190 individuals
+  Min 1012605.0
+  Max 1.24553123862e+11
+  Avg 1.03994617868e+11
+  Std 20139317722.7
+-- Generation 26 --
+  Evaluated 182 individuals
+  Min 47941.0
+  Max 1.24553266508e+11
+  Avg 1.06142063994e+11
+  Std 19567933182.2
+-- Generation 27 --
+  Evaluated 180 individuals
+  Min 363754.0
+  Max 1.24553266508e+11
+  Avg 1.10723307108e+11
+  Std 16647915377.4
+-- Generation 28 --
+  Evaluated 196 individuals
+  Min 164996.0
+  Max 1.24553266508e+11
+  Avg 1.10050465863e+11
+  Std 20185233547.9
+-- Generation 29 --
+  Evaluated 175 individuals
+  Min 8590236083.0
+  Max 1.28847507246e+11
+  Avg 1.15175758218e+11
+  Std 14242252433.3
+-- Generation 30 --
+  Evaluated 191 individuals
+  Min 212354.0
+  Max 1.28848215794e+11
+  Avg 1.15061241825e+11
+  Std 17652334540.9
+-- Generation 31 --
+  Evaluated 162 individuals
+  Min 295642.0
+  Max 1.28848215794e+11
+  Avg 1.18697637748e+11
+  Std 13208503269.1
+-- Generation 32 --
+  Evaluated 186 individuals
+  Min 21474921476.0
+  Max 1.28848065384e+11
+  Avg 1.18611766552e+11
+  Std 15530977120.1
+-- Generation 33 --
+  Evaluated 191 individuals
+  Min 21475226759.0
+  Max 1.28848251856e+11
+  Avg 1.19513770898e+11
+  Std 14494905083.8
+-- Generation 34 --
+  Evaluated 202 individuals
+  Min 361220.0
+  Max 1.33142895612e+11
+  Avg 1.20172359652e+11
+  Std 16027741337.4
+-- Generation 35 --
+  Evaluated 180 individuals
+  Min 388084.0
+  Max 1.33142895612e+11
+  Avg 1.19127274211e+11
+  Std 20627830929.7
+-- Generation 36 --
+  Evaluated 173 individuals
+  Min 180760.0
+  Max 1.33142895612e+11
+  Avg 1.21074294173e+11
+  Std 20163525305.5
+-- Generation 37 --
+  Evaluated 197 individuals
+  Min 198866.0
+  Max 1.33143216258e+11
+  Avg 1.20988413599e+11
+  Std 19905994975.7
+-- Generation 38 --
+  Evaluated 170 individuals
+  Min 12885041396.0
+  Max 1.33143216258e+11
+  Avg 1.22763667466e+11
+  Std 17678733093.4
+-- Generation 39 --
+  Evaluated 193 individuals
+  Min 274228.0
+  Max 1.33143216258e+11
+  Avg 1.21904717494e+11
+  Std 21627160250.7
+-- End of (successful) evolution --
+Best individual is [('subu\t $8,\t $31,\t $7',), ('sub\t $22,\t $28,\t $4',), ('andi\t $13,\t $2,\t 24911',), ('addi\t $7,\t $4,\t 37819',), ('andi\t $2,\t $0,\t 36068',), ('addi\t $10,\t $25,\t 16161',), ('ori\t $7,\t $16,\t 36169',), ('sub\t $7,\t $20,\t $31',), ('subu\t $1,\t $30,\t $27',), ('subu\t $9,\t $21,\t $25',), ('addi\t $23,\t $8,\t 56831',), ('addi\t $5,\t $14,\t 7516',), ('sub\t $21,\t $2,\t $25',), ('subu\t $11,\t $18,\t $29',), ('or\t $16,\t $5,\t $2',), ('sub\t $10,\t $13,\t $24',), ('sub\t $13,\t $16,\t $0',), ('add\t $27,\t $8,\t $14',), ('add\t $30,\t $7,\t $27',), ('or\t $1,\t $25,\t $23',), ('andi\t $16,\t $20,\t 17240',), ('andi\t $31,\t $14,\t 1718',), ('sub\t $14,\t $23,\t $13',), ('ori\t $31,\t $12,\t 30323',), ('sub\t $22,\t $7,\t $8',), ('and\t $0,\t $18,\t $31',), ('or\t $19,\t $28,\t $19',), ('or\t $6,\t $10,\t $28',), ('ori\t $26,\t $29,\t 63835',), ('subu\t $28,\t $4,\t $27',), ('addi\t $28,\t $29,\t 23958',), ('and\t $7,\t $11,\t $12',), ('subu\t $20,\t $15,\t $15',), ('or\t $2,\t $23,\t $15',), ('ori\t $16,\t $6,\t 19681',), ('addi\t $2,\t $16,\t 20936',), ('andi\t $7,\t $17,\t 41195',), ('addi\t $5,\t $20,\t 50027',), ('add\t $6,\t $18,\t $2',), ('subu\t $29,\t $1,\t $9',), ('sub\t $20,\t $21,\t $24',), ('add\t $0,\t $14,\t $24',), ('subu\t $28,\t $24,\t $22',), ('or\t $2,\t $16,\t $3',), ('sub\t $10,\t $14,\t $6',), ('addi\t $19,\t $7,\t 16934',), ('add\t $6,\t $0,\t $5',), ('andi\t $31,\t $23,\t 27045',), ('add\t $20,\t $11,\t $10',), ('addi\t $1,\t $20,\t 12692',), ('subu\t $26,\t $2,\t $15',), ('sub\t $15,\t $15,\t $21',), ('or\t $30,\t $10,\t $16',), ('add\t $20,\t $19,\t $2',), ('add\t $13,\t $30,\t $10',), ('addi\t $21,\t $8,\t 59995',), ('add\t $8,\t $22,\t $13',), ('andi\t $16,\t $15,\t 56193',), ('sub\t $4,\t $2,\t $18',), ('addi\t $7,\t $12,\t 36499',), ('and\t $19,\t $21,\t $0',), ('sub\t $15,\t $21,\t $11',), ('subu\t $4,\t $21,\t $26',), ('addi\t $9,\t $30,\t 37344',), ('addi\t $11,\t $6,\t 57521',), ('or\t $4,\t $22,\t $10',), ('add\t $27,\t $28,\t $7',), ('add\t $6,\t $20,\t $8',), ('addi\t $23,\t $24,\t 34287',), ('andi\t $26,\t $17,\t 25048',), ('add\t $26,\t $26,\t $23',), ('subu\t $22,\t $25,\t $19',), ('sub\t $28,\t $3,\t $19',), ('add\t $20,\t $4,\t $23',), ('and\t $23,\t $6,\t $13',), ('subu\t $23,\t $29,\t $28',), ('subu\t $28,\t $12,\t $22',), ('and\t $31,\t $26,\t $27',), ('add\t $22,\t $29,\t $4',), ('andi\t $3,\t $10,\t 45841',), ('add\t $4,\t $0,\t $17',), ('or\t $12,\t $13,\t $14',), ('add\t $3,\t $21,\t $13',), ('or\t $24,\t $26,\t $14',), ('add\t $16,\t $13,\t $14',), ('add\t $5,\t $20,\t $18',), ('or\t $15,\t $8,\t $14',), ('add\t $18,\t $9,\t $4',), ('andi\t $8,\t $15,\t 61336',), ('add\t $28,\t $25,\t $22',), ('addi\t $2,\t $0,\t 53355',), ('add\t $25,\t $23,\t $12',), ('or\t $3,\t $30,\t $15',), ('sub\t $19,\t $23,\t $8',), ('sub\t $17,\t $7,\t $19',), ('ori\t $13,\t $5,\t 7028',), ('or\t $0,\t $11,\t $11',), ('add\t $23,\t $7,\t $3',), ('ori\t $22,\t $1,\t 37275',), ('or\t $19,\t $19,\t $18',)], (133143216258.0,)
