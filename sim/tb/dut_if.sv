@@ -20,6 +20,7 @@ interface dut_if (input bit clk);
     logic instr_rd_en;
     logic data_rd_en;
     logic data_wr_en;
+    logic [31:0] forw;
     logic [DATA_WIDTH-1:0] instruction;
     logic [DATA_WIDTH-1:0] data_read;
     logic [DATA_WIDTH-1:0] data_write;

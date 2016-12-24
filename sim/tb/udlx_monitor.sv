@@ -42,6 +42,7 @@ class udlx_monitor;
       @(posedge dut_if.clk_env);
       #1
       dut_if.rst_n = 1;
+      dut_if.forw = 0;
       @(negedge dut_if.boot_mode);
     end
   endtask
@@ -56,6 +57,48 @@ class udlx_monitor;
       end
     join_none
   endtask
+
+`ifdef FORWARDS
+  task forw_count();
+    fork
+      forever begin
+      @(posedge dut_if.clk_dlx);
+
+        // Port-A ALU input
+        // Forwarding data from MEM -> EXE
+        if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_a_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_a_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_a_wr_ena_in)begin
+           dut_if.forw <= dut_if.forw + 1;
+        end
+        else if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_a_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_b_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_b_wr_ena_in)begin
+           dut_if.forw <= dut_if.forw + 1;
+        end
+        // Forwarding data from WB -> EXE
+        else if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_a_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_a_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_a_wr_ena_in)begin
+           dut_if.forw <= dut_if.forw + 1;
+        end
+        else  if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_a_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_b_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_b_wr_ena_in)begin
+           dut_if.forw <= dut_if.forw + 1;
+        end
+
+        // Port-B ALU input
+        // Forwarding data from MEM -> EXE
+        if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_b_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_a_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_a_wr_ena_in)begin
+           dut_if.forw <= dut_if.forw + 1;  
+        end
+        else if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_b_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_b_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_b_wr_ena_in)begin
+           dut_if.forw <= dut_if.forw + 1;
+        end
+        // Forwarding data from WB -> EXE
+        else if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_b_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_a_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_a_wr_ena_in)begin
+           dut_if.forw <= dut_if.forw + 1;
+        end
+        else if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_b_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_b_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_b_wr_ena_in)begin
+           dut_if.forw <= dut_if.forw + 1;
+        end
+      end
+    join_none
+  endtask
+`endif 
 
   task read_instruction();
     fork
@@ -94,7 +137,7 @@ class udlx_monitor;
       string compile_c;
       string execute_c;
       string f_path;
-      integer fp,c,r,fp_regs;
+      integer fp,c,r,fp_regs,fp_forw;
       int cnt, ok;
       int error_reg;
       int error_mem;
@@ -162,6 +205,7 @@ class udlx_monitor;
         $finish;
       $display("\n");
 
+`ifdef REGS_OUT
       fp_regs = $fopen("regs_out", "w");
       $display("START REPORT");
       for (cnt=0; cnt<32; cnt++) begin
@@ -170,6 +214,17 @@ class udlx_monitor;
       end
       $display("END REPORT");
       $fclose(fp_regs);
+`endif 
+
+`ifdef FORWARDS
+      fp_forw = $fopen("forw", "w");
+      $display("START REPORT");
+      $display("total forwardings: %h", dut_if.forw);
+      $fwrite(fp_forw, "%d\n", dut_if.forw);
+      $display("END REPORT");
+      $fclose(fp_forw);
+`endif 
+
 
       $display("********************************************************");
       $display("*********  TEST PASSED : CONGRATULATIONS!!  ************");

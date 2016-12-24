@@ -22,7 +22,7 @@ import conf_rand_user_input
 numb_of_tests = int(sys.argv[1])
 
 #build the rtl
-build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist ;"
+build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist ; " # +define+FORWARDS;"
 os.system(build_str)
 
 seed = random.choice([j for j in range(0, 2**16)])

@@ -226,6 +226,9 @@ begin
    monitor_u0.reset();
    monitor_u0.read_data();
    monitor_u0.read_instruction();
+`ifdef FORWARDS
+   monitor_u0.forw_count();
+`endif 
    repeat(100)@(posedge clk);
 end
 
