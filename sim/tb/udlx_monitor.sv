@@ -20,6 +20,8 @@ class udlx_monitor;
   int cnt_stop;
   int part_num;
   int instr_count;
+  int forw;
+  int prev_forw;
   logic [DATA_WIDTH-1:0] instruction;
   logic [DATA_WIDTH-1:0] regs_reference [0:(2**ADDRESS_WIDTH)-1];
   logic [DATA_WIDTH-1:0] data_write_reference [0:MAX_LENGTH-1];
@@ -42,7 +44,8 @@ class udlx_monitor;
       @(posedge dut_if.clk_env);
       #1
       dut_if.rst_n = 1;
-      dut_if.forw = 0;
+      forw = 32'b0;
+      prev_forw = 32'b0;
       @(negedge dut_if.boot_mode);
     end
   endtask
@@ -67,33 +70,39 @@ class udlx_monitor;
         // Port-A ALU input
         // Forwarding data from MEM -> EXE
         if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_a_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_a_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_a_wr_ena_in)begin
-           dut_if.forw <= dut_if.forw + 1;
+           forw = forw + 1;
         end
         else if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_a_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_b_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_b_wr_ena_in)begin
-           dut_if.forw <= dut_if.forw + 1;
+           forw = forw + 1;
         end
         // Forwarding data from WB -> EXE
         else if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_a_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_a_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_a_wr_ena_in)begin
-           dut_if.forw <= dut_if.forw + 1;
+           forw = forw + 1;
         end
         else  if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_a_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_b_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_b_wr_ena_in)begin
-           dut_if.forw <= dut_if.forw + 1;
+           forw = forw + 1;
         end
 
         // Port-B ALU input
         // Forwarding data from MEM -> EXE
         if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_b_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_a_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_a_wr_ena_in)begin
-           dut_if.forw <= dut_if.forw + 1;  
+           forw = forw + 1;  
         end
         else if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_b_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_b_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.ex_mem_reg_b_wr_ena_in)begin
-           dut_if.forw <= dut_if.forw + 1;
+           forw = forw + 1;
         end
         // Forwarding data from WB -> EXE
         else if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_b_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_a_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_a_wr_ena_in)begin
-           dut_if.forw <= dut_if.forw + 1;
+           forw = forw + 1;
         end
         else if((top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.addr_alu_b_in == top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_b_addr_in) & top_u0.dlx_processor_u0.execute_address_calculate_u0.forward_unit.wb_reg_b_wr_ena_in)begin
-           dut_if.forw <= dut_if.forw + 1;
+           forw = forw + 1;
+        end
+        
+        if (forw != prev_forw) begin
+           $display("forw: %x", forw);
+           $display("prev_forw: %x", prev_forw);
+           prev_forw = forw;
         end
       end
     join_none
@@ -219,8 +228,8 @@ class udlx_monitor;
 `ifdef FORWARDS
       fp_forw = $fopen("forw", "w");
       $display("START REPORT");
-      $display("total forwardings: %h", dut_if.forw);
-      $fwrite(fp_forw, "%d\n", dut_if.forw);
+      $display("total forwardings: %h", forw);
+      $fwrite(fp_forw, "%d\n", forw);
       $display("END REPORT");
       $fclose(fp_forw);
 `endif 

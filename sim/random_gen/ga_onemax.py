@@ -77,10 +77,13 @@ def evalOneMax(individual):
     # REF register[i]: xx
     # pdb.set_trace()
     acc = 0
-    read_regs = open("regs_out", 'r') 
-    lines = read_regs.readlines()
-    for i in range(0, len(lines)):
-       acc += int(lines[i])
+    # read_regs = open("regs_out", 'r')
+    # lines = read_regs.readlines()
+    # for i in range(0, len(lines)):
+    #    acc += int(lines[i])
+    forw = open("forw", 'r')
+    lines = forw.readlines()
+    acc += int(lines[0])
 
     return acc,
 
@@ -109,7 +112,7 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 def main():
 
     print "build the DUT"
-    build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist ;"
+    build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist  +define+FORWARDS;"
     os.system(build_str)
     weights.set_list()
 

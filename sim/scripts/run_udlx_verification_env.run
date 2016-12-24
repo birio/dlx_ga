@@ -13,5 +13,5 @@ esac
 export TIMESCALE='1ns/10ps'
 vlog \
 -timescale $TIMESCALE \
--f ../srclist/udlx_test.srclist # +define+ENABLE_CHECK +define+FORWARDS;
+-f ../srclist/udlx_test.srclist  +define+FORWARDS; # +define+ENABLE_CHECK
 vsim  $CMD work.udlx_tb
