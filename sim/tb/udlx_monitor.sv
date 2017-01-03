@@ -46,6 +46,7 @@ class udlx_monitor;
       dut_if.rst_n = 1;
       forw = 32'b0;
       prev_forw = 32'b0;
+      instr_count = 0;
       @(negedge dut_if.boot_mode);
     end
   endtask
@@ -129,10 +130,11 @@ class udlx_monitor;
         else begin
           cnt_stop = 0;
         end
-        if(instr_count == 10) begin
+        if(instr_count % 10 == 0) begin
            $display("part %d", part_num);
            part_num = part_num + 1;
-           instr_count = 0;
+           // instr_count = 0;
+           instr_count = instr_count + 1;
         end
         else begin
            instr_count = instr_count + 1;
@@ -228,8 +230,10 @@ class udlx_monitor;
 `ifdef FORWARDS
       fp_forw = $fopen("forw", "w");
       $display("START REPORT");
-      $display("total forwardings: %h", forw);
-      $fwrite(fp_forw, "%d\n", forw);
+      $display("total forwardings: %d", forw);
+      $display("instr_count: %d", instr_count);
+      $display("forws prct: %f\n", 100*forw/instr_count);
+      $fwrite(fp_forw, "%f\n", 100*forw/instr_count);
       $display("END REPORT");
       $fclose(fp_forw);
 `endif 

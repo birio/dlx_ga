@@ -83,7 +83,7 @@ def evalOneMax(individual):
     #    acc += int(lines[i])
     forw = open("forw", 'r')
     lines = forw.readlines()
-    acc += int(lines[0])
+    acc += float(lines[0])
 
     return acc,
 
