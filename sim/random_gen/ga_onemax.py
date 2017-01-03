@@ -132,7 +132,7 @@ def main():
     #       evolution runs
     CXPB, MUTPB, NGEN = 0.5, 0.2, 40
    
-    rep_seqs   = open("rep_seqs", "w")
+    fp_rep_seqs = open("rep_seqs", "w")
     stats_file = open("stats_file", "w") 
     print("Start of evolution")
     stats_file.write("Start of evolution\n")
@@ -157,32 +157,32 @@ def main():
 
         # TODO fixed size
         # search for a pattern
-        # pdb.set_trace()
         # ignore nop
         # for the moment, fixed size
 
-        cnct_ind = [temp_offspring[i][0] for i in range(0, len(temp_offspring))]
-        size = 2
+        size = 4
         all_seqs=[]
         rep_seqs=[]
-        for i in range(0, len(cnct_ind)-size+1):
-           if len([ j for j in cnct_ind[i:i+size] if "nop" not in j]) == 0:
-              if cnct_ind[i:i+size] in all_seqs:
+        for j in range(0, len(temp_offspring)):
+           cnct_ind = [k[0] for k in temp_offspring[j][:]]
+           for i in range(0, len(cnct_ind)-size+1):
+              if (cnct_ind[i:i+size] in all_seqs) and not (cnct_ind[i:i+size] in rep_seqs):
                  rep_seqs.append(cnct_ind[i:i+size])
               else:
                  all_seqs.append(cnct_ind[i:i+size])
 
+        # pdb.set_trace()
         # add the pattern in the generator weight dictionary
         # do not add twice the same sequence
         if len(rep_seqs) != 0:
            print ("identified a repeated sequence\n")
-           rep_seqs.write("identified a repeated sequence\n")
+           fp_rep_seqs.write("identified a repeated sequence\n")
            for i in range(0, len(rep_seqs)):
               seq_str = "multi_"
-              seq_str = "".join(i for i in rep_seqs[0]).replace(" ", "_").replace("$", "").replace(",", "")
-              test_weights_d[seq_str] = cell(0, 100, 10) # the generator will handle it
-              rep_seqs.write(seq_str)
-              rep_seqs.write("\n")
+              seq_str = "".join(i for i in rep_seqs[0]).replace(" ", "_").replace("$", "").replace(",", "").replace("\t", "")
+              weights.test_weights_d[seq_str] = weights.cell(0, 100, 10) # the generator will handle it
+              fp_rep_seqs.write(seq_str)
+              fp_rep_seqs.write("\n")
 
         
         weights.set_list()
