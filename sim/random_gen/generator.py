@@ -23,6 +23,10 @@ def gen_line():
    available_regs_l = [ i for i in range(0, 32) if prob_use_reg_l[i] == True ]
    # print "available_regs_l"
    # print available_regs_l 
+
+   # TODO
+   if "multi" in str(asm_line[0]):
+      pdb.set_trace()
    
    if str(asm_line[0]) in opcodes.r_types_l:
       r0 = random.choice(available_regs_l)

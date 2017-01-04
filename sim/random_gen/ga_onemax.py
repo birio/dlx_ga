@@ -145,6 +145,7 @@ def main():
     print("  Evaluated %i individuals" % len(pop))
     stats_file.write("  Evaluated %i individuals\n" % len(pop))
     
+    rep_seqs=[]
     # Begin the evolution
     for g in range(NGEN):
         print("-- Generation %i --" % g)
@@ -162,28 +163,29 @@ def main():
 
         size = 4
         all_seqs=[]
-        rep_seqs=[]
         for j in range(0, len(temp_offspring)):
            cnct_ind = [k[0] for k in temp_offspring[j][:]]
            for i in range(0, len(cnct_ind)-size+1):
               if (cnct_ind[i:i+size] in all_seqs) and not (cnct_ind[i:i+size] in rep_seqs):
+                 # pdb.set_trace()
                  rep_seqs.append(cnct_ind[i:i+size])
               else:
                  all_seqs.append(cnct_ind[i:i+size])
 
-        # pdb.set_trace()
         # add the pattern in the generator weight dictionary
         # do not add twice the same sequence
-        if len(rep_seqs) != 0:
-           print ("identified a repeated sequence\n")
-           fp_rep_seqs.write("identified a repeated sequence\n")
-           for i in range(0, len(rep_seqs)):
-              seq_str = "multi_"
-              seq_str = "".join(i for i in rep_seqs[0]).replace(" ", "_").replace("$", "").replace(",", "").replace("\t", "")
-              weights.test_weights_d[seq_str] = weights.cell(0, 100, 10) # the generator will handle it
-              fp_rep_seqs.write(seq_str)
-              fp_rep_seqs.write("\n")
+        # TODO
+        # if len(rep_seqs) != 0:
+        #    print ("identified a repeated sequence\n")
+        #    fp_rep_seqs.write("identified a repeated sequence\n")
+        #    for i in range(0, len(rep_seqs)):
+        #       seq_str = "multi_"
+        #       seq_str = "".join(i for i in rep_seqs[i]).replace(" ", "_").replace("$", "").replace(",", "").replace("\t", "")
+        #       weights.test_weights_d[seq_str] = weights.cell(0, 100, 10) # the generator will handle it
+        #       fp_rep_seqs.write(seq_str)
+        #       fp_rep_seqs.write("\n")
 
+        # pdb.set_trace()
         
         weights.set_list()
 
