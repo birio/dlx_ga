@@ -22,11 +22,14 @@ import conf_rand_user_input
 numb_of_tests = int(sys.argv[1])
 
 #build the rtl
-build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist ; " # +define+FORWARDS;"
+# build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist +define+REGS_OUT ; " # +define+FORWARDS;"
+build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist +define+FORWARDS;"
 os.system(build_str)
 
 seed = random.choice([j for j in range(0, 2**16)])
 input_test = conf_rand_user_input.conf_user_test(seed)
+
+# max_acc = 0
 
 for i in range(0, numb_of_tests):
    # move input_test to the generator.py directory
@@ -37,4 +40,16 @@ for i in range(0, numb_of_tests):
    os.system("java -jar ../../compiler/Mars4_4.jar a dump .text HexText ../../sim/tests/generated_test.hex " + str(output_test))
    os.system("vsim  -c -do \"run -all; exit\" work.udlx_tb")
    # the tb generate the file regs_out: rename it with the test number
-   os.system("mv regs_out regs_out_" + str(i))
+   # os.system("mv regs_out regs_out_" + str(i))
+
+   # read_regs = open("regs_out", 'r')
+   # lines = read_regs.readlines()
+   # acc = 0
+   # for i in range(0, len(lines)):
+   #    acc += int(lines[i])
+  
+   # if acc > max_acc:
+   #    max_acc = acc;
+
+
+# print "max_acc = ", max_acc 
