@@ -25,6 +25,7 @@ i_types_l = [
 
 ]
 
+
 # instr r0, r1, label
 b_types_l = [
 
@@ -67,4 +68,6 @@ j_types_l = [
 "j", "jal"
 
 ]
+
+opcodes_l = [r_types_l, r_j_types_l, i_types_l, b_types_l, move_types_l, load_types_l, s_i_types_l, l_i_types_l, j_types_l]
 
