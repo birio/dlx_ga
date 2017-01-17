@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys
+import pdb
 import random
 import importlib
 
@@ -19,16 +20,18 @@ def gen_line():
    trues_l  = [True]  * weights.test_weights_d["numb_of_regs_to_use"]
    falses_l = [False] * (32 - weights.test_weights_d["numb_of_regs_to_use"])
    prob_use_reg_l = trues_l + falses_l
-   random.shuffle(prob_use_reg_l)
+   ##  random.shuffle(prob_use_reg_l) # TODO
    available_regs_l = [ i for i in range(0, 32) if prob_use_reg_l[i] == True ]
    # print "available_regs_l"
    # print available_regs_l 
 
-   # TODO
+   multi_str_l = []
    if "multi" in str(asm_line[0]):
-      pdb.set_trace()
-   
-   if str(asm_line[0]) in opcodes.r_types_l:
+      multi_str = asm_line[0].replace("multi", "")
+      multi_str_l = multi_str.split("__")
+      line = tuple(i+"\n" for i in multi_str_l[1:])  
+ 
+   elif str(asm_line[0]) in opcodes.r_types_l:
       r0 = random.choice(available_regs_l)
       r1 = random.choice(available_regs_l)
       r2 = random.choice(available_regs_l)
@@ -138,7 +141,8 @@ def main():
    for i in range (0, number_of_lines):
       line = gen_line()
       test_file.write("\t")
-      test_file.write(line[0])
+      for i in range(0, len(line)):
+         test_file.write(line[i])
       test_file.write("\n")
    for i in range(0, 10):
       test_file.write("NOP")
