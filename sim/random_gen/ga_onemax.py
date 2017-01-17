@@ -18,11 +18,17 @@ from deap import base
 from deap import creator
 from deap import tools
 
-def MutFlipList (ind, indpb, n): 
+def MutFlipList (ind, indpb, n):
+  # TODO debug 
   for i in range(0, n):
     # if tools.mutFlipBit(ind, indpb):
     if random.random() < indpb:
-      ind[i] = generator.gen_line()
+      lines = generator.gen_line()
+      ind[i] = lines[0] 
+      if len(lines) > 1:
+        # pdb.set_trace()
+        for j in range(1, len(line)):
+           ind.insert(i+j, lines[j])
   return ind,
 #  return [tools.mutFlipBit(ind[b], indpb) for b in range(0, n)]
 
@@ -67,7 +73,12 @@ def evalOneMax(individual):
     test_file.close()
 
     # compile the test corresponding to the individual
-    os.system("java -jar ../../compiler/Mars4_4.jar a dump .text HexText ../../sim/tests/generated_test.hex " + str(file_name))
+    ret_value = os.system("java -jar ../../compiler/Mars4_4.jar a dump .text HexText ../../sim/tests/generated_test.hex " + str(file_name))
+
+    # TODO
+    # pdb.set_trace()
+    # if ret_value != 0:
+    #    raise ValueError("compiler returns an error");
 
     # run the test
     os.system("vsim  -c -do \"run -all; exit\" work.udlx_tb")
@@ -75,7 +86,6 @@ def evalOneMax(individual):
     # the test output is print in regs_out: parse it and compute the fitness value
     # the fitness value is the same of the content of all registers, which is printed in regs_out
     # REF register[i]: xx
-    # pdb.set_trace()
     acc = 0
     # read_regs = open("regs_out", 'r')
     # lines = read_regs.readlines()
@@ -121,6 +131,7 @@ def main():
 
     # create an initial population of 300 individuals (where
     # each individual is a list of integers)
+    # TODO pass a parameter for doing short regr or long regr
     pop = toolbox.population(n=300)
 
     # CXPB  is the probability with which two individuals
@@ -131,7 +142,8 @@ def main():
     # NGEN  is the number of generations for which the
     #       evolution runs
     CXPB, MUTPB, NGEN = 0.5, 0.2, 40
-   
+  
+    # add python define FORWS/REGS OUT 
     fp_rep_seqs = open("rep_seqs", "w")
     stats_file = open("stats_file", "w") 
     print("Start of evolution")
@@ -145,7 +157,7 @@ def main():
     print("  Evaluated %i individuals" % len(pop))
     stats_file.write("  Evaluated %i individuals\n" % len(pop))
     
-    rep_seqs=[]
+    dict_seqs=[]
     # Begin the evolution
     for g in range(NGEN):
         print("-- Generation %i --" % g)
@@ -158,34 +170,37 @@ def main():
 
         # TODO fixed size
         # search for a pattern
-        # ignore nop
-        # for the moment, fixed size
 
         size = 4
         all_seqs=[]
-        for j in range(0, len(temp_offspring)):
-           cnct_ind = [k[0] for k in temp_offspring[j][:]]
-           for i in range(0, len(cnct_ind)-size+1):
-              if (cnct_ind[i:i+size] in all_seqs) and not (cnct_ind[i:i+size] in rep_seqs):
-                 # pdb.set_trace()
-                 rep_seqs.append(cnct_ind[i:i+size])
-              else:
-                 all_seqs.append(cnct_ind[i:i+size])
+        rep_seqs=[]
+        if len(dict_seqs < 1000):
+           for j in range(0, len(temp_offspring)):
+              cnct_ind = [k[0] for k in temp_offspring[j][:]]
+              for i in range(0, len(cnct_ind)-size+1):
+                 if (cnct_ind[i:i+size] in all_seqs) and not (cnct_ind[i:i+size] in dict_seqs):
+                    # pdb.set_trace()
+                    rep_seqs.append(cnct_ind[i:i+size])
+                    dict_seqs.append(cnct_ind[i:i+size])
+                 else:
+                    all_seqs.append(cnct_ind[i:i+size])
 
         # add the pattern in the generator weight dictionary
         # do not add twice the same sequence
-        # TODO
-        # if len(rep_seqs) != 0:
-        #    print ("identified a repeated sequence\n")
-        #    fp_rep_seqs.write("identified a repeated sequence\n")
-        #    for i in range(0, len(rep_seqs)):
-        #       seq_str = "multi_"
-        #       seq_str = "".join(i for i in rep_seqs[i]).replace(" ", "_").replace("$", "").replace(",", "").replace("\t", "")
-        #       weights.test_weights_d[seq_str] = weights.cell(0, 100, 10) # the generator will handle it
-        #       fp_rep_seqs.write(seq_str)
-        #       fp_rep_seqs.write("\n")
+        if len(rep_seqs) != 0:
+           print ("identified a repeated sequence\n")
+           fp_rep_seqs.write("identified a repeated sequence\n")
+           for i in range(0, len(rep_seqs)):
+              # pdb.set_trace()
+              # seq_str = "".join(i for i in rep_seqs[i]) # .replace(" ", "_").replace("$", "").replace(",", "").replace("\t", "")
+              seq_str = "multi"
+              for i in rep_seqs[i]:
+                 seq_str = seq_str + "__"
+                 seq_str = seq_str + i
+              weights.test_weights_d[seq_str] = weights.cell(0, 100, 50) # the generator will handle it
+              fp_rep_seqs.write(seq_str)
+              fp_rep_seqs.write("\n")
 
-        # pdb.set_trace()
         
         weights.set_list()
 
