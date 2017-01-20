@@ -11,6 +11,7 @@ import weights
 import re
 import os
 import generator
+import argparse
 
 import pdb
 
@@ -121,6 +122,19 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 def main():
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--quick", action="store_true", help="set parameters for rapid regression")
+    args = parser.parse_args()
+
+    n_gen = 40
+    n_pop = 300
+    patt_prct = .05
+    if args.quick:
+       print "quick regression selected"
+       n_gen = 4
+       n_pop = 10
+       patt_prct = .3
+
     print "build the DUT"
     build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist  +define+FORWARDS;"
     os.system(build_str)
@@ -131,8 +145,7 @@ def main():
 
     # create an initial population of 300 individuals (where
     # each individual is a list of integers)
-    # TODO pass a parameter for doing short regr or long regr
-    pop = toolbox.population(n=300)
+    pop = toolbox.population(n=n_pop)
 
     # CXPB  is the probability with which two individuals
     #       are crossed
@@ -141,8 +154,9 @@ def main():
     #
     # NGEN  is the number of generations for which the
     #       evolution runs
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 40
-  
+    CXPB, MUTPB, NGEN = 0.5, 0.2, n_gen
+    PATT_PRCT = patt_prct
+
     # add python define FORWS/REGS OUT 
     fp_rep_seqs = open("rep_seqs", "w")
     stats_file = open("stats_file", "w") 
@@ -165,7 +179,7 @@ def main():
 
         # select an arbitrary portion of the population
         # TODO for perf reasons, do select twice is not a good choice
-        temp_offspring = toolbox.select(pop, len(pop)/3)
+        temp_offspring = toolbox.select(pop, len(pop)*PATT_PRCT)
         temp_offspring = list(map(toolbox.clone, temp_offspring))
 
         # TODO fixed size
@@ -174,7 +188,7 @@ def main():
         size = 4
         all_seqs=[]
         rep_seqs=[]
-        if len(dict_seqs < 1000):
+        if len(dict_seqs) < 1000:
            for j in range(0, len(temp_offspring)):
               cnct_ind = [k[0] for k in temp_offspring[j][:]]
               for i in range(0, len(cnct_ind)-size+1):
@@ -197,7 +211,7 @@ def main():
               for i in rep_seqs[i]:
                  seq_str = seq_str + "__"
                  seq_str = seq_str + i
-              weights.test_weights_d[seq_str] = weights.cell(0, 100, 50) # the generator will handle it
+              weights.test_weights_d[seq_str] = weights.cell(0, 100, 10) # the generator will handle it
               fp_rep_seqs.write(seq_str)
               fp_rep_seqs.write("\n")
 
