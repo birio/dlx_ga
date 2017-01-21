@@ -27,6 +27,7 @@ def gen_line():
 
    multi_str_l = []
    if "multi" in str(asm_line[0]):
+      # pdb.set_trace()
       multi_str = asm_line[0].replace("multi", "")
       multi_str_l = multi_str.split("__")
       line = tuple(i+"\n" for i in multi_str_l[1:])  

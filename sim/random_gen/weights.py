@@ -70,6 +70,8 @@ test_weights_d["imm_value_15_max_value"] = 2**15+1
 # imm_value_16
 test_weights_d["imm_value_16_max_value"] = 2**16+1
 
+# TODO too big lists
+
 # between 1 and 100
 max_num_of_labels = 1
 

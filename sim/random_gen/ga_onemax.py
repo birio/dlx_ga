@@ -20,18 +20,18 @@ from deap import creator
 from deap import tools
 
 def MutFlipList (ind, indpb, n):
-  # TODO debug 
   for i in range(0, n):
-    # if tools.mutFlipBit(ind, indpb):
     if random.random() < indpb:
       lines = generator.gen_line()
-      ind[i] = lines[0] 
-      if len(lines) > 1:
+      ind[i] = lines[0][0] 
+      if len(lines[0]) > 1:
         # pdb.set_trace()
-        for j in range(1, len(line)):
-           ind.insert(i+j, lines[j])
+        for j in range(1, len(lines[0])):
+           ind.insert(i+j, lines[0][j])
   return ind,
-#  return [tools.mutFlipBit(ind[b], indpb) for b in range(0, n)]
+
+# TODO script as a bin
+# TODO in rep_seqs there was an error....
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMax)
@@ -134,6 +134,14 @@ def main():
        n_gen = 4
        n_pop = 10
        patt_prct = .3
+       weights.test_weights_d["prob_opcode_addi"]    = weights.cell(0, 100, 0)
+       weights.test_weights_d["prob_opcode_subu"]    = weights.cell(0, 100, 0)
+       weights.test_weights_d["prob_opcode_and"]     = weights.cell(0, 100, 0)
+       weights.test_weights_d["prob_opcode_andi"]    = weights.cell(0, 100, 0)
+       weights.test_weights_d["prob_opcode_or"]      = weights.cell(0, 100, 0)
+       weights.test_weights_d["prob_opcode_ori"]     = weights.cell(0, 100, 0)
+       weights.test_weights_d["numb_of_regs_to_use_max_value"] = 3
+       weights.test_weights_d["numb_of_regs_to_use"] = random.choice([i for i in range (3, weights.test_weights_d["numb_of_regs_to_use_max_value"]+1)])
 
     print "build the DUT"
     build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist  +define+FORWARDS;"
@@ -179,7 +187,8 @@ def main():
 
         # select an arbitrary portion of the population
         # TODO for perf reasons, do select twice is not a good choice
-        temp_offspring = toolbox.select(pop, len(pop)*PATT_PRCT)
+        # pdb.set_trace()
+        temp_offspring = toolbox.select(pop, int(len(pop)*PATT_PRCT))
         temp_offspring = list(map(toolbox.clone, temp_offspring))
 
         # TODO fixed size
@@ -205,7 +214,6 @@ def main():
            print ("identified a repeated sequence\n")
            fp_rep_seqs.write("identified a repeated sequence\n")
            for i in range(0, len(rep_seqs)):
-              # pdb.set_trace()
               # seq_str = "".join(i for i in rep_seqs[i]) # .replace(" ", "_").replace("$", "").replace(",", "").replace("\t", "")
               seq_str = "multi"
               for i in rep_seqs[i]:
@@ -217,6 +225,7 @@ def main():
 
         
         weights.set_list()
+        # pdb.set_trace()
 
         # Select the next generation individuals
         offspring = toolbox.select(pop, len(pop))
