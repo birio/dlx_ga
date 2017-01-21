@@ -1,0 +1,1 @@
+../random_gen/ga_onemax.py

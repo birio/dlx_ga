@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # DEFINES
 # attr_instr  : gene - an instruction - string
 # individual  : a generate asm test - list
