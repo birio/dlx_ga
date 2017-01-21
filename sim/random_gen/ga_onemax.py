@@ -32,9 +32,6 @@ def MutFlipList (ind, indpb, n):
            ind.insert(i+j, lines[0][j])
   return ind,
 
-# TODO script as a bin
-# TODO in rep_seqs there was an error....
-
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMax)
 
@@ -75,13 +72,15 @@ def evalOneMax(individual):
        test_file.write("\n")
     test_file.close()
 
+    # rm previous .hex
+    os.system("rm ../tests/generated_test.hex")
+    file_name = "generated_test.asm"
     # compile the test corresponding to the individual
-    ret_value = os.system("java -jar ../../compiler/Mars4_4.jar a dump .text HexText ../../sim/tests/generated_test.hex " + str(file_name))
+    os.system("java -jar ../../compiler/Mars4_4.jar a dump .text HexText ../../sim/tests/generated_test.hex " + str(file_name))
+    ret_value = os.system("ls ../tests/generated_test.hex")
 
-    # TODO
-    # pdb.set_trace()
-    # if ret_value != 0:
-    #    raise ValueError("compiler returns an error");
+    if ret_value != 0:
+       raise ValueError("compiler returns an error");
 
     # run the test
     os.system("vsim  -c -do \"run -all; exit\" work.udlx_tb")
@@ -144,6 +143,9 @@ def main():
        weights.test_weights_d["prob_opcode_ori"]     = weights.cell(0, 100, 0)
        weights.test_weights_d["numb_of_regs_to_use_max_value"] = 3
        weights.test_weights_d["numb_of_regs_to_use"] = random.choice([i for i in range (3, weights.test_weights_d["numb_of_regs_to_use_max_value"]+1)])
+
+    # rm previous .hex
+    os.system("rm ../tests/generated_test.hex")
 
     print "build the DUT"
     build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist  +define+FORWARDS;"
@@ -291,3 +293,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# TODO smarter  ^C effect
+# TODO files with smarter path definition
