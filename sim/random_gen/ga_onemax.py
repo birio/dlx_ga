@@ -187,9 +187,8 @@ def main():
         stats_file.write("-- Generation %i --\n" % g)
 
         # select an arbitrary portion of the population
-        # TODO for perf reasons, do select twice is not a good choice
         # pdb.set_trace()
-        temp_offspring = toolbox.select(pop, int(len(pop)*PATT_PRCT))
+        temp_offspring = tools.selBest(pop, int(len(pop)*PATT_PRCT))
         temp_offspring = list(map(toolbox.clone, temp_offspring))
 
         # TODO fixed size
@@ -294,3 +293,5 @@ if __name__ == "__main__":
 
 # TODO smarter  ^C effect
 # TODO files with smarter path definition
+# TODO reduce the stdout
+# TODO print seed generated at the begginning of the regr, and then pass it as an argument
