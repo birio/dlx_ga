@@ -25,11 +25,7 @@ def MutFlipList (ind, indpb, n):
   for i in range(0, n):
     if random.random() < indpb:
       lines = generator.gen_line()
-      ind[i] = lines[0][0] 
-      if len(lines[0]) > 1:
-        # pdb.set_trace()
-        for j in range(1, len(lines[0])):
-           ind.insert(i+j, lines[0][j])
+      ind[i] = lines
   return ind,
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
@@ -63,10 +59,11 @@ def evalOneMax(individual):
     test_file = open(file_name, 'w+')
     # for each element of the individual list
     for i in range (0, len(individual)):
-       line = "".join(individual[i])
-       test_file.write("\t")
-       test_file.write(line)
-       test_file.write("\n")
+       for j in range (0, len(individual[i])):
+         line = "".join(individual[i][j])
+         test_file.write("\t")
+         test_file.write(line)
+         test_file.write("\n")
     for i in range(0, 10):
        test_file.write("NOP")
        test_file.write("\n")
@@ -187,7 +184,6 @@ def main():
         stats_file.write("-- Generation %i --\n" % g)
 
         # select an arbitrary portion of the population
-        # pdb.set_trace()
         temp_offspring = tools.selBest(pop, int(len(pop)*PATT_PRCT))
         temp_offspring = list(map(toolbox.clone, temp_offspring))
 
@@ -199,12 +195,11 @@ def main():
         rep_seqs=[]
         if len(dict_seqs) < 1000:
            for j in range(0, len(temp_offspring)):
-              cnct_ind = [k[0] for k in temp_offspring[j][:]]
+              cnct_ind = temp_offspring[j][:]
               for i in range(0, len(cnct_ind)-size+1):
                  if (cnct_ind[i:i+size] in all_seqs) and not (cnct_ind[i:i+size] in dict_seqs):
-                    # pdb.set_trace()
-                    rep_seqs.append(cnct_ind[i:i+size])
-                    dict_seqs.append(cnct_ind[i:i+size])
+                    rep_seqs.append([k[0] for k in cnct_ind[i:i+size]])
+                    dict_seqs.append([k[0] for k in cnct_ind[i:i+size]])
                  else:
                     all_seqs.append(cnct_ind[i:i+size])
 
@@ -213,19 +208,15 @@ def main():
         if len(rep_seqs) != 0:
            print ("identified a repeated sequence\n")
            fp_rep_seqs.write("identified a repeated sequence\n")
-           for i in range(0, len(rep_seqs)):
-              # seq_str = "".join(i for i in rep_seqs[i]) # .replace(" ", "_").replace("$", "").replace(",", "").replace("\t", "")
-              seq_str = "multi"
-              for i in rep_seqs[i]:
-                 seq_str = seq_str + "__"
-                 seq_str = seq_str + i
-              weights.test_weights_d[seq_str] = weights.cell(0, 100, 10) # the generator will handle it
-              fp_rep_seqs.write(seq_str)
-              fp_rep_seqs.write("\n")
+           # for i in range(0, len(rep_seqs)):
+           for i in rep_seqs:
+              seq_str = "multi__" + "".join(str(j + "__") for j in i)
+           weights.test_weights_d[seq_str] = weights.cell(0, 100, 10) # the generator will handle it
+           fp_rep_seqs.write(seq_str)
+           fp_rep_seqs.write("\n")
 
         
         weights.set_list()
-        # pdb.set_trace()
 
         # Select the next generation individuals
         offspring = toolbox.select(pop, len(pop))
@@ -295,3 +286,5 @@ if __name__ == "__main__":
 # TODO files with smarter path definition
 # TODO reduce the stdout
 # TODO print seed generated at the begginning of the regr, and then pass it as an argument
+# TODO post mortem debug
+# TODO review mutation probability

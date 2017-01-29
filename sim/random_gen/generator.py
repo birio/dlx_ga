@@ -30,13 +30,13 @@ def gen_line():
       # pdb.set_trace()
       multi_str = asm_line[0].replace("multi", "")
       multi_str_l = multi_str.split("__")
-      line = tuple(i+"\n" for i in multi_str_l[1:])  
+      line = [i+"\n" for i in multi_str_l[1:]]
  
    elif str(asm_line[0]) in opcodes.r_types_l:
       r0 = random.choice(available_regs_l)
       r1 = random.choice(available_regs_l)
       r2 = random.choice(available_regs_l)
-      line = str(asm_line[0]) + "\t $" + str(r0) + ",\t $" + str(r1) + ",\t $" + str(r2)
+      line = [str(asm_line[0]) + "\t $" + str(r0) + ",\t $" + str(r1) + ",\t $" + str(r2)]
    
    elif str(asm_line[0]) in opcodes.i_types_l:
       r0 = random.choice(available_regs_l)
@@ -45,25 +45,25 @@ def gen_line():
          imm = random.choice(weights.test_weights_d["imm_value_15_l"])
       else:
          imm = random.choice(weights.test_weights_d["imm_value_16_l"])
-      line = str(asm_line[0]) + "\t $" + str(r0) + ",\t $" + str(r1) + ",\t " + str(imm)
+      line = [str(asm_line[0]) + "\t $" + str(r0) + ",\t $" + str(r1) + ",\t " + str(imm)]
    
    elif str(asm_line[0]) in opcodes.s_i_types_l:
       r0 = random.choice(available_regs_l)
       r1 = random.choice(available_regs_l)
       imm = random.choice(weights.test_weights_d["imm_value_5_l"])
-      line = str(asm_line[0]) + "\t $" + str(r0) + ",\t $" + str(r1) + ",\t " + str(imm)
+      line = [str(asm_line[0]) + "\t $" + str(r0) + ",\t $" + str(r1) + ",\t " + str(imm)]
    
    elif str(asm_line[0]) in opcodes.load_types_l:
       r0 = random.choice(available_regs_l)
       r1 = random.choice(available_regs_l)
       imm = random.choice(weights.test_weights_d["imm_value_16_l"])
-      line = str(asm_line[0]) + "\t $" + str(r0) + ",\t " + str(imm) + "($" + str(r1) + ")"
+      line = [str(asm_line[0]) + "\t $" + str(r0) + ",\t " + str(imm) + "($" + str(r1) + ")"]
    
    elif str(asm_line[0]) in opcodes.b_types_l:
       r0 = random.choice(available_regs_l)
       r1 = random.choice(available_regs_l)
       b_label = "label_" + str(random.choice([j for j in range (0, num_of_labels)]))
-      line = str(asm_line[0]) + "\t $" + str(r0) + ",\t $" + str(r1) + ",\t " + str(b_label)
+      line = [str(asm_line[0]) + "\t $" + str(r0) + ",\t $" + str(r1) + ",\t " + str(b_label)]
    
    elif str(asm_line[0]) in opcodes.l_i_types_l:
       r0 = random.choice(available_regs_l)
@@ -71,23 +71,23 @@ def gen_line():
          imm = random.choice(weights.test_weights_d["imm_value_16_l"])
       else: # "li"
          imm = int(random.random()*2**32) 
-      line = str(asm_line[0]) + "\t $" + str(r0) + ",\t " + str(imm)
+      line = [str(asm_line[0]) + "\t $" + str(r0) + ",\t " + str(imm)]
    
    elif str(asm_line[0]) in opcodes.move_types_l:
       r0 = random.choice(available_regs_l)
       r1 = random.choice(available_regs_l)
-      line = str(asm_line[0]) + "\t $" + str(r0) + "\t $" + str(r1)
+      line = [str(asm_line[0]) + "\t $" + str(r0) + "\t $" + str(r1)]
    
    elif str(asm_line[0]) in opcodes.j_types_l:
       j_label = "label_" + str(random.choice([j for j in range (0, num_of_labels)]))
-      line = str(asm_line[0]) + "\t " + str(j_label)
+      line = [str(asm_line[0]) + "\t " + str(j_label)]
    
    elif str(asm_line[0]) in opcodes.r_j_types_l:
       r0 = random.choice(available_regs_l)
-      line = str(asm_line[0]) + "\t $" + str(r0)
+      line = [str(asm_line[0]) + "\t $" + str(r0)]
    
    else:
-      line = str(asm_line[0])
+      line = [str(asm_line[0])]
    
    # if i in labels_lines_l:
    #    label_str = "label_" + str(printed_label) + ":" 
@@ -95,7 +95,7 @@ def gen_line():
    #    test_file.write("\n")
    #    printed_label += 1
 
-   return line,
+   return line
 
 def main():
    # ./generator.py SEED [-t <user_test> -o <generated_asm.asm>]
