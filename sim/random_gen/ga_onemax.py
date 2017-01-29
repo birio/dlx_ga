@@ -186,17 +186,19 @@ def main():
         # select an arbitrary portion of the population
         temp_offspring = tools.selBest(pop, int(len(pop)*PATT_PRCT))
         temp_offspring = list(map(toolbox.clone, temp_offspring))
+        min_temp_valid = (min([pop[i].fitness.values[0] for i in range(0, len(pop))])) >= 50 # means greater than the 50 prct of the possible maximum value
 
-        # TODO fixed size
+        # REVISIT fixed size
         # search for a pattern
 
         size = 4
         all_seqs=[]
         rep_seqs=[]
-        if len(dict_seqs) < 1000:
+        if min_temp_valid and len(dict_seqs) < 1000:
            for j in range(0, len(temp_offspring)):
               cnct_ind = temp_offspring[j][:]
               for i in range(0, len(cnct_ind)-size+1):
+                 pdb.set_trace()
                  if (cnct_ind[i:i+size] in all_seqs) and not (cnct_ind[i:i+size] in dict_seqs):
                     rep_seqs.append([k[0] for k in cnct_ind[i:i+size]])
                     dict_seqs.append([k[0] for k in cnct_ind[i:i+size]])
@@ -282,9 +284,11 @@ if __name__ == "__main__":
     main()
 
 
-# TODO smarter  ^C effect
+# REVISIT smarter  ^C effect
 # TODO files with smarter path definition
 # TODO reduce the stdout
 # TODO print seed generated at the begginning of the regr, and then pass it as an argument
 # TODO post mortem debug
 # TODO review mutation probability
+# TODO define for regs or forw test
+# TODO use prct value for fitness in order to add other statistics easly
