@@ -80,7 +80,10 @@ def evalOneMax(individual):
        raise ValueError("compiler returns an error");
 
     # run the test
-    os.system("vsim  -c -do \"run -all; exit\" work.udlx_tb")
+    # REVISIT ensure that a fail will block the regression
+    # REVISIT print test number
+    print ("run the test")
+    os.system("vsim -c -do \"run -all; exit\" work.udlx_tb > temp_vsim.log")
 
     # the test output is print in regs_out: parse it and compute the fitness value
     # the fitness value is the same of the content of all registers, which is printed in regs_out
@@ -120,13 +123,16 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 def main():
 
+    # argument parser
     parser = argparse.ArgumentParser()
     parser.add_argument("--quick", action="store_true", help="set parameters for rapid regression")
     args = parser.parse_args()
 
+    # main parameters of the algorithm
     n_gen = 40
     n_pop = 300
     patt_prct = .05
+
     if args.quick:
        print "quick regression selected"
        n_gen = 4
@@ -141,7 +147,7 @@ def main():
        weights.test_weights_d["numb_of_regs_to_use_max_value"] = 3
        weights.test_weights_d["numb_of_regs_to_use"] = random.choice([i for i in range (3, weights.test_weights_d["numb_of_regs_to_use_max_value"]+1)])
 
-    # rm previous .hex
+    # rm previous .hex if present from other tests eventually
     os.system("rm ../tests/generated_test.hex")
 
     print "build the DUT"
@@ -149,8 +155,7 @@ def main():
     os.system(build_str)
     weights.set_list()
 
-    # create an initial population of 300 individuals (where
-    # each individual is a list of integers)
+    # create an initial population of n_pop individuals
     pop = toolbox.population(n=n_pop)
 
     # CXPB  is the probability with which two individuals
@@ -163,7 +168,7 @@ def main():
     CXPB, MUTPB, NGEN = 0.5, 0.2, n_gen
     PATT_PRCT = patt_prct
 
-    # add python define FORWS/REGS OUT 
+    # TODO add python define FORWS/REGS OUT 
     fp_rep_seqs = open("rep_seqs", "w")
     stats_file = open("stats_file", "w") 
     print("Start of evolution")
@@ -198,7 +203,6 @@ def main():
            for j in range(0, len(temp_offspring)):
               cnct_ind = temp_offspring[j][:]
               for i in range(0, len(cnct_ind)-size+1):
-                 pdb.set_trace()
                  if (cnct_ind[i:i+size] in all_seqs) and not (cnct_ind[i:i+size] in dict_seqs):
                     rep_seqs.append([k[0] for k in cnct_ind[i:i+size]])
                     dict_seqs.append([k[0] for k in cnct_ind[i:i+size]])
@@ -285,8 +289,8 @@ if __name__ == "__main__":
 
 
 # REVISIT smarter  ^C effect
-# TODO files with smarter path definition
-# TODO reduce the stdout
+# REVISIT files with smarter path definition
+# TODO reduce the stdout and redirect it smartly
 # TODO print seed generated at the begginning of the regr, and then pass it as an argument
 # TODO post mortem debug
 # TODO review mutation probability
