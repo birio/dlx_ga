@@ -34,6 +34,7 @@ creator.create("Individual", list, fitness=creator.FitnessMax)
 toolbox = base.Toolbox()
 
 number_of_lines = 100
+test_value = "FORWARDS"
 
 # Attribute generator 
 #                      define 'attr_instr' to be an attribute ('gene')
@@ -89,13 +90,15 @@ def evalOneMax(individual):
     # the fitness value is the same of the content of all registers, which is printed in regs_out
     # REF register[i]: xx
     acc = 0
-    # read_regs = open("regs_out", 'r')
-    # lines = read_regs.readlines()
-    # for i in range(0, len(lines)):
-    #    acc += int(lines[i])
-    forw = open("forw", 'r')
-    lines = forw.readlines()
-    acc += float(lines[0])
+    if test_value == "REGS_OUT":
+       read_regs = open("regs_out", 'r')
+       lines = read_regs.readlines()
+       for i in range(0, len(lines)):
+          acc += int(lines[i])
+    else:
+       forw = open("forw", 'r')
+       lines = forw.readlines()
+       acc += float(lines[0])
 
     return acc,
 
@@ -126,6 +129,7 @@ def main():
     # argument parser
     parser = argparse.ArgumentParser()
     parser.add_argument("--quick", action="store_true", help="set parameters for rapid regression")
+    parser.add_argument('--test', help='chose between REGS_OUT and FORWARDS')
     args = parser.parse_args()
 
     # main parameters of the algorithm
@@ -147,11 +151,21 @@ def main():
        weights.test_weights_d["numb_of_regs_to_use_max_value"] = 3
        weights.test_weights_d["numb_of_regs_to_use"] = random.choice([i for i in range (3, weights.test_weights_d["numb_of_regs_to_use_max_value"]+1)])
 
+    global test_value
+    if args.test: 
+       print "test is set to ", args.test
+       if args.test not in ["FORWARDS", "REGS_OUT"]:
+         print "test is invalid: test is assigned to FORWARDS"
+       else:
+         test_value = args.test
+    else:
+       print "test is not set: default is FORWARDS"
+
     # rm previous .hex if present from other tests eventually
     os.system("rm ../tests/generated_test.hex")
 
     print "build the DUT"
-    build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist  +define+FORWARDS;"
+    build_str = "export TIMESCALE='1ns/10ps' ; vlog -timescale $TIMESCALE -f ../srclist/udlx_test.srclist  +define+" + str(test_value) + ";"
     os.system(build_str)
     weights.set_list()
 
@@ -168,7 +182,6 @@ def main():
     CXPB, MUTPB, NGEN = 0.5, 0.2, n_gen
     PATT_PRCT = patt_prct
 
-    # TODO add python define FORWS/REGS OUT 
     fp_rep_seqs = open("rep_seqs", "w")
     stats_file = open("stats_file", "w") 
     print("Start of evolution")
@@ -290,9 +303,8 @@ if __name__ == "__main__":
 
 # REVISIT smarter  ^C effect
 # REVISIT files with smarter path definition
-# TODO reduce the stdout and redirect it smartly
 # TODO print seed generated at the begginning of the regr, and then pass it as an argument
 # TODO post mortem debug
+
 # TODO review mutation probability
-# TODO define for regs or forw test
 # TODO use prct value for fitness in order to add other statistics easly
