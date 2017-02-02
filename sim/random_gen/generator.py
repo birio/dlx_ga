@@ -10,8 +10,7 @@ import opcodes
 import weights
 
 def gen_line():
- 
-   #random.seed(seed)
+
    # chose an instr from the weighted list
    asm_line = random.sample(weights.weighted_opcodes_l, 1)
    

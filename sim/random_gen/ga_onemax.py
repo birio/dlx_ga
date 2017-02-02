@@ -126,16 +126,25 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 def main():
 
-    # argument parser
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--quick", action="store_true", help="set parameters for rapid regression")
-    parser.add_argument('--test', help='chose between REGS_OUT and FORWARDS')
-    args = parser.parse_args()
-
     # main parameters of the algorithm
     n_gen = 40
     n_pop = 300
     patt_prct = .05
+
+    # argument parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--quick", action="store_true", help="set parameters for rapid regression")
+    parser.add_argument('--test', help='chose between REGS_OUT and FORWARDS')
+    parser.add_argument('--seed', help='force a seed for the regression test')
+    args = parser.parse_args()
+
+    if args.seed:
+      test_seed = args.seed;
+      random.seed(int(test_seed));
+    else:
+      test_seed = int(random.random()*1000000)
+      random.seed(test_seed);
+    print "regression seed is ", test_seed
 
     if args.quick:
        print "quick regression selected"
@@ -186,6 +195,7 @@ def main():
     stats_file = open("stats_file", "w") 
     print("Start of evolution")
     stats_file.write("Start of evolution\n")
+    stats_file.write("regression seed is %i \n" % int(test_seed))
     
     # Evaluate the entire population
     fitnesses = list(map(toolbox.evaluate, pop))
@@ -234,8 +244,9 @@ def main():
            fp_rep_seqs.write(seq_str)
            fp_rep_seqs.write("\n")
 
+           weights.set_list()
+
         
-        weights.set_list()
 
         # Select the next generation individuals
         offspring = toolbox.select(pop, len(pop))
@@ -304,7 +315,8 @@ if __name__ == "__main__":
 # REVISIT smarter  ^C effect
 # REVISIT files with smarter path definition
 # TODO print seed generated at the begginning of the regr, and then pass it as an argument
-# TODO post mortem debug
+# TODO is seed respected also in other files?
 
+# TODO post mortem debug
 # TODO review mutation probability
 # TODO use prct value for fitness in order to add other statistics easly
