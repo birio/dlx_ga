@@ -72,6 +72,8 @@ def evalOneMax(individual):
 
     # rm previous .hex
     os.system("rm ../tests/generated_test.hex")
+    os.system("rm rep_seqs")
+    os.system("rm stats_file")
     file_name = "generated_test.asm"
     # compile the test corresponding to the individual
     os.system("java -jar ../../compiler/Mars4_4.jar a dump .text HexText ../../sim/tests/generated_test.hex " + str(file_name))
@@ -204,7 +206,7 @@ def main():
     
     print("  Evaluated %i individuals" % len(pop))
     stats_file.write("  Evaluated %i individuals\n" % len(pop))
-    
+
     dict_seqs=[]
     # Begin the evolution
     for g in range(NGEN):
@@ -236,7 +238,7 @@ def main():
         # do not add twice the same sequence
         if len(rep_seqs) != 0:
            print ("identified a repeated sequence\n")
-           fp_rep_seqs.write("identified a repeated sequence\n")
+           # fp_rep_seqs.write("identified a repeated sequence\n")
            # for i in range(0, len(rep_seqs)):
            for i in rep_seqs:
               seq_str = "multi__" + "".join(str(j + "__") for j in i)
@@ -251,7 +253,7 @@ def main():
         # Select the next generation individuals
         offspring = toolbox.select(pop, len(pop))
         # Clone the selected individuals
-        offspring = list(map(toolbox.clone, offspring))
+        offspring = list(map(toolbox.clone, offspring)) # TODO why do we have to clone
     
         # Apply crossover and mutation on the offspring
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
@@ -308,6 +310,7 @@ def main():
     print("Best individual is %s, %s" % (best_ind, best_ind.fitness.values))
     stats_file.write("Best individual is %s, %s\n" % (best_ind, best_ind.fitness.values))
 
+
 if __name__ == "__main__":
     main()
 
@@ -320,3 +323,8 @@ if __name__ == "__main__":
 # TODO post mortem debug
 # TODO review mutation probability
 # TODO use prct value for fitness in order to add other statistics easly
+# TODO better printing
+# TODO profiling
+# TODO use it as a bin
+# TODO book: how to set parameters
+# TODO add min value in the dictionary
