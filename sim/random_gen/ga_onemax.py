@@ -172,6 +172,16 @@ def main():
     else:
        print "test is not set: default is FORWARDS"
 
+    test_stats_d = {}
+    test_stats_d["add"]  = 0
+    test_stats_d["addi"] = 0
+    test_stats_d["sub"]  = 0
+    test_stats_d["subu"] = 0
+    test_stats_d["and"]  = 0
+    test_stats_d["andi"] = 0
+    test_stats_d["or"]   = 0
+    test_stats_d["ori"]  = 0
+
     # rm previous .hex if present from other tests eventually
     os.system("rm ../tests/generated_test.hex")
 
@@ -182,6 +192,7 @@ def main():
 
     # create an initial population of n_pop individuals
     pop = toolbox.population(n=n_pop)
+    # pdb.set_trace()
 
     # CXPB  is the probability with which two individuals
     #       are crossed
@@ -279,15 +290,25 @@ def main():
         fitnesses = map(toolbox.evaluate, invalid_ind)
         for ind, fit in zip(invalid_ind, fitnesses):
             ind.fitness.values = fit
-        
+
         print("  Evaluated %i individuals" % len(invalid_ind))
         stats_file.write("  Evaluated %i individuals\n" % len(invalid_ind))
-        
+
         # The population is entirely replaced by the offspring
         pop[:] = offspring
-       
+
         # Gather all the fitnesses in one list and print the stats
         fits = [ind.fitness.values[0] for ind in pop]
+
+
+        # TODO correlate the stats with the fitness value (e.g. weight the stats with the fitness)
+        # re-elaborate stats
+        # pop[n_pop][number_of_lines][multi]
+        for i in range(0, n_pop):
+          for j in range(0, len(pop[i])):
+            for k in range(0, len(pop[i][j])): # TODO in case of multi, the stat is different
+              str_opcode = pop[i][j][k].split()[0]
+              test_stats_d[str_opcode] += 1
         
         length = len(pop)
         mean = sum(fits) / length
@@ -309,6 +330,9 @@ def main():
     best_ind = tools.selBest(pop, 1)[0]
     print("Best individual is %s, %s" % (best_ind, best_ind.fitness.values))
     stats_file.write("Best individual is %s, %s\n" % (best_ind, best_ind.fitness.values))
+
+    print "test_stats_d"
+    print test_stats_d
 
 
 if __name__ == "__main__":
